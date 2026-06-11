@@ -3,8 +3,18 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
+type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  link?: string;
+  github?: string;
+  video?: string;
+};
+
 // Mock Data
-const SHIPPED_PROJECTS = [
+const SHIPPED_PROJECTS: Project[] = [
   {
     title: "Grada",
     description: "Fashion operations with AI integrations to streamline workflows.",
@@ -16,7 +26,7 @@ const SHIPPED_PROJECTS = [
   }
 ];
 
-const SCRAPPED_PROJECTS = [
+const SCRAPPED_PROJECTS: Project[] = [
   {
     title: "GPT Vault",
     description: "A specialized dashboard interface for managing language models.",
