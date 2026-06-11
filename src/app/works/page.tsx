@@ -87,7 +87,7 @@ export default function Works() {
       {filter === "shipped" ? (
         <div className="flex-1 w-full min-h-0 flex items-center gap-[16px] md:gap-[40px] pb-[16px] md:pb-[32px] overflow-x-auto snap-x snap-mandatory" style={{ justifyContent: projects.length > 2 ? 'flex-start' : 'center' }}>
           {projects.map((project) => (
-            <div key={project.title} className="relative flex flex-col group overflow-hidden h-full max-h-[85vh] w-auto aspect-[3/4] bg-[#f0f0f0] cursor-pointer rounded-[16px] shadow-2xl shrink-0 snap-center">
+            <div key={project.title} className="relative flex flex-col group overflow-hidden h-[70vh] md:h-full max-h-[85vh] w-full max-w-[85vw] md:w-auto md:max-w-none aspect-[3/4] bg-[#f0f0f0] cursor-pointer rounded-[16px] shadow-2xl shrink-0 snap-center">
               {/* Poster Image */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
@@ -115,7 +115,7 @@ export default function Works() {
                 {/* Bottom Edge */}
                 <div className="flex justify-between items-end w-full">
                   {/* Description (Visible on Hover) */}
-                  <p className="text-[1rem] md:text-[1.15rem] max-w-[65%] leading-relaxed font-medium opacity-0 group-hover:opacity-80 transition-opacity duration-300">
+                  <p className="text-[0.9rem] md:text-[1.15rem] max-w-[90%] md:max-w-[65%] leading-relaxed font-medium opacity-0 group-hover:opacity-80 transition-opacity duration-300">
                     {project.description}
                   </p>
 
