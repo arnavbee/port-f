@@ -57,7 +57,7 @@ export default function Works() {
 
   return (
     <div className="pt-[80px] md:pt-[96px] pb-[40px] h-screen flex flex-col px-6 md:px-10 w-full max-w-[1100px] mx-auto overflow-hidden">
-      {/* Header Area */}
+      {/* Header Section */}
       <div className="w-full flex justify-end mb-[24px] md:mb-[40px] border-b border-[#eaeaea] pb-[16px] md:pb-[24px] shrink-0">
         {/* Toggle Switch */}
         <div className="flex gap-[16px] md:gap-[24px]">
