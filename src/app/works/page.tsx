@@ -89,6 +89,7 @@ export default function Works() {
           {projects.map((project) => (
             <div key={project.title} className="relative flex flex-col group overflow-hidden h-full max-h-[85vh] w-auto aspect-[3/4] bg-[#f0f0f0] cursor-pointer rounded-[16px] shadow-2xl shrink-0 snap-center">
               {/* Poster Image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src={project.image} 
                 alt={project.title} 
@@ -177,6 +178,7 @@ export default function Works() {
 
                 {/* Polaroid Image */}
                 <div className="relative w-full h-full overflow-hidden bg-black/5 mb-[12px] md:mb-[16px]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={project.image} 
                     alt={project.title} 
