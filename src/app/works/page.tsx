@@ -52,8 +52,18 @@ const SCRAPPED_PROJECTS: Project[] = [
 
 export default function Works() {
   const [filter, setFilter] = useState<"shipped" | "scrapped">("shipped");
+  const [flippedProject, setFlippedProject] = useState<string | null>(null);
   
   const projects = filter === "shipped" ? SHIPPED_PROJECTS : SCRAPPED_PROJECTS;
+
+  const handleFilterChange = (newFilter: "shipped" | "scrapped") => {
+    setFilter(newFilter);
+    setFlippedProject(null);
+  };
+
+  const toggleFlip = (title: string) => {
+    setFlippedProject(prev => prev === title ? null : title);
+  };
 
   return (
     <div className="pt-[80px] md:pt-[96px] pb-[40px] h-screen flex flex-col px-6 md:px-10 w-full max-w-[1100px] mx-auto overflow-hidden">
@@ -62,7 +72,7 @@ export default function Works() {
         {/* Toggle Switch */}
         <div className="flex gap-[16px] md:gap-[24px]">
           <button
-            onClick={() => setFilter("shipped")}
+            onClick={() => handleFilterChange("shipped")}
             className={cn(
               "text-[0.75rem] md:text-[0.85rem] font-medium transition-opacity duration-200",
               filter === "shipped" ? "text-black" : "text-black/40 hover:opacity-80"
@@ -72,7 +82,7 @@ export default function Works() {
           </button>
           <span className="text-black/20 font-medium text-[0.75rem] md:text-[0.85rem]">/</span>
           <button
-            onClick={() => setFilter("scrapped")}
+            onClick={() => handleFilterChange("scrapped")}
             className={cn(
               "text-[0.75rem] md:text-[0.85rem] font-medium transition-opacity duration-200",
               filter === "scrapped" ? "text-black" : "text-black/40 hover:opacity-80"
@@ -87,25 +97,41 @@ export default function Works() {
       {filter === "shipped" ? (
         <div className="flex-1 w-full min-h-0 flex items-center gap-[16px] md:gap-[40px] pb-[16px] md:pb-[32px] overflow-x-auto snap-x snap-mandatory" style={{ justifyContent: projects.length > 2 ? 'flex-start' : 'center' }}>
           {projects.map((project) => (
-            <div key={project.title} className="relative flex flex-col group overflow-hidden h-[70vh] md:h-full max-h-[85vh] w-full max-w-[85vw] md:w-auto md:max-w-none aspect-[3/4] bg-[#f0f0f0] cursor-pointer rounded-[16px] shadow-2xl shrink-0 snap-center">
+            <div 
+              key={project.title} 
+              onClick={() => toggleFlip(project.title)}
+              className="relative flex flex-col group overflow-hidden h-[70vh] md:h-full max-h-[85vh] w-full max-w-[85vw] md:w-auto md:max-w-none aspect-[3/4] bg-[#f0f0f0] cursor-pointer rounded-[16px] shadow-2xl shrink-0 snap-center"
+            >
               {/* Poster Image */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src={project.image} 
                 alt={project.title} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                className={cn(
+                  "absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out md:group-hover:scale-[1.03]",
+                  flippedProject === project.title ? "scale-[1.03]" : ""
+                )}
               />
+
+              {/* Mobile Blur Overlay for Readability */}
+              <div className={cn(
+                "absolute inset-0 bg-white/70 backdrop-blur-md md:bg-transparent md:backdrop-blur-none transition-all duration-300 z-10",
+                flippedProject === project.title ? "opacity-100" : "opacity-0"
+              )}></div>
               
               {/* Ultra-Minimal Edge Overlay */}
-              <div className="absolute inset-0 p-[24px] md:p-[40px] flex flex-col justify-between z-10 text-black">
+              <div className="absolute inset-0 p-[24px] md:p-[40px] flex flex-col justify-between z-20 text-black pointer-events-none">
                 
                 {/* Top Edge */}
                 <div className="flex justify-between items-start w-full">
                   {/* Title (Always Visible) */}
-                  <h3 className="text-[2rem] md:text-[3.5rem] font-medium leading-none tracking-tight">{project.title}</h3>
+                  <h3 className="text-[2rem] md:text-[3.5rem] font-medium leading-none tracking-tight pointer-events-auto">{project.title}</h3>
                   
-                  {/* Tags (Visible on Hover) */}
-                  <div className="flex gap-[16px] text-[0.8rem] md:text-[0.85rem] font-semibold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-70 transition-opacity duration-300">
+                  {/* Tags (Visible on Hover/Tap) */}
+                  <div className={cn(
+                    "flex gap-[16px] text-[0.8rem] md:text-[0.85rem] font-semibold uppercase tracking-widest mt-2 transition-opacity duration-300",
+                    flippedProject === project.title ? "opacity-100" : "opacity-0 md:group-hover:opacity-70"
+                  )}>
                     {project.tags.slice(0, 2).map(tag => (
                       <span key={tag}>{tag}</span>
                     ))}
@@ -114,13 +140,19 @@ export default function Works() {
 
                 {/* Bottom Edge */}
                 <div className="flex justify-between items-end w-full">
-                  {/* Description (Visible on Hover) */}
-                  <p className="text-[0.9rem] md:text-[1.15rem] max-w-[90%] md:max-w-[65%] leading-relaxed font-medium opacity-0 group-hover:opacity-80 transition-opacity duration-300">
+                  {/* Description (Visible on Hover/Tap) */}
+                  <p className={cn(
+                    "text-[0.9rem] md:text-[1.15rem] max-w-[90%] md:max-w-[65%] leading-relaxed font-medium transition-opacity duration-300",
+                    flippedProject === project.title ? "opacity-100" : "opacity-0 md:group-hover:opacity-80"
+                  )}>
                     {project.description}
                   </p>
 
-                  {/* Icons (Visible on Hover) */}
-                  <div className="flex gap-[16px] opacity-0 group-hover:opacity-60 transition-opacity duration-300">
+                  {/* Icons (Visible on Hover/Tap) */}
+                  <div className={cn(
+                    "flex gap-[16px] transition-opacity duration-300 pointer-events-auto",
+                    flippedProject === project.title ? "opacity-100" : "opacity-0 md:group-hover:opacity-60"
+                  )}>
                     {project.video && (
                       <a href={project.video} className="transition-opacity duration-200 hover:opacity-100" aria-label="Demo Video" target="_blank" rel="noopener noreferrer">
                         <svg className="w-[20px] h-[20px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -166,11 +198,13 @@ export default function Works() {
             {projects.map((project, index) => (
               <div 
                 key={project.title} 
+                onClick={() => toggleFlip(project.title)}
                 className={cn(
-                  "relative flex flex-col group w-[120px] md:w-[160px] lg:w-[180px] aspect-[4/5] bg-white p-[6px] md:p-[8px] pb-[16px] md:pb-[24px] shadow-[0_8px_20px_rgba(0,0,0,0.08)] cursor-pointer transition-transform duration-500 hover:z-50 hover:scale-[1.15] hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)]",
+                  "relative flex flex-col group w-[140px] md:w-[160px] lg:w-[180px] aspect-[4/5] bg-white p-[6px] md:p-[8px] pb-[16px] md:pb-[24px] shadow-[0_8px_20px_rgba(0,0,0,0.08)] cursor-pointer transition-transform duration-500 hover:z-50 md:hover:scale-[1.15] md:hover:shadow-[0_15px_40px_rgba(0,0,0,0.15)]",
                   index % 2 === 0 ? "rotate-[-4deg]" : "rotate-[5deg]",
                   index === 1 ? "mt-[20px] md:mt-[40px] rotate-[2deg]" : "",
-                  index === 2 ? "rotate-[-2deg] -mt-[10px]" : ""
+                  index === 2 ? "rotate-[-2deg] -mt-[10px]" : "",
+                  flippedProject === project.title ? "z-50 scale-[1.10] shadow-[0_15px_40px_rgba(0,0,0,0.15)]" : ""
                 )}
               >
                 {/* Tape Effect */}
@@ -182,10 +216,10 @@ export default function Works() {
                   <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="absolute inset-0 w-full h-full object-cover grayscale contrast-[1.2] opacity-80 group-hover:grayscale-0 group-hover:contrast-100 group-hover:opacity-100 transition-all duration-700 ease-out"
+                    className="absolute inset-0 w-full h-full object-cover grayscale contrast-[1.2] opacity-80 md:group-hover:grayscale-0 md:group-hover:contrast-100 md:group-hover:opacity-100 transition-all duration-700 ease-out"
                   />
                   {/* Overlay to give it a rough paper vibe initially */}
-                  <div className="absolute inset-0 bg-[#f4eade] mix-blend-multiply opacity-30 group-hover:opacity-0 transition-opacity duration-700"></div>
+                  <div className="absolute inset-0 bg-[#f4eade] mix-blend-multiply opacity-30 md:group-hover:opacity-0 transition-opacity duration-700"></div>
                 </div>
                 
                 {/* Sharpie Text */}
@@ -195,7 +229,10 @@ export default function Works() {
                 </div>
 
                 {/* Hidden Links overlay (Polaroid flip vibe) */}
-                <div className="absolute inset-0 bg-white/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-center items-center gap-[12px] md:gap-[16px] pointer-events-none group-hover:pointer-events-auto">
+                <div className={cn(
+                  "absolute inset-0 bg-white/95 transition-opacity duration-300 z-10 flex flex-col justify-center items-center gap-[12px] md:gap-[16px]",
+                  flippedProject === project.title ? "opacity-100 pointer-events-auto" : "opacity-0 md:group-hover:opacity-100 pointer-events-none md:group-hover:pointer-events-auto"
+                )}>
                    <p className="text-center px-[8px] md:px-[16px] text-[0.6rem] md:text-[0.7rem] font-medium text-black/70 leading-relaxed font-mono">{project.description}</p>
                    <div className="flex gap-[12px] md:gap-[16px] text-black">
                     {project.video && (
