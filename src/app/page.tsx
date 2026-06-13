@@ -6,7 +6,8 @@ import { useSpaceMode } from "@/components/SpaceModeProvider";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const cardAudioRef = useRef<HTMLAudioElement | null>(null);
+  const spaceAudioRef = useRef<HTMLAudioElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const { isSpaceMode } = useSpaceMode();
 
@@ -15,26 +16,31 @@ export default function Home() {
       videoRef.current.playbackRate = 0.5; // Slow motion
     }
     
-    // Play song when entering Space Mode, pause when exiting
-    if (audioRef.current) {
-      if (isSpaceMode) {
-        audioRef.current.play().catch(console.error);
-        setIsPlaying(true);
-      } else {
-        audioRef.current.pause();
+    if (isSpaceMode) {
+      // Pause card audio if it was playing
+      if (cardAudioRef.current && isPlaying) {
+        cardAudioRef.current.pause();
         setIsPlaying(false);
       }
+      // Play space mode song
+      if (spaceAudioRef.current) {
+        spaceAudioRef.current.play().catch(console.error);
+      }
+    } else {
+      // Pause space mode song
+      if (spaceAudioRef.current) {
+        spaceAudioRef.current.pause();
+      }
     }
-  }, [isSpaceMode]);
+  }, [isSpaceMode, isPlaying]);
 
   const toggleAudio = () => {
-    if (audioRef.current) {
+    if (cardAudioRef.current) {
       if (isPlaying) {
-        audioRef.current.pause();
+        cardAudioRef.current.pause();
         setIsPlaying(false);
       } else {
-        // Attempt to play, catch any browser autoplay policy errors gracefully
-        audioRef.current.play().catch(console.error);
+        cardAudioRef.current.play().catch(console.error);
         setIsPlaying(true);
       }
     }
@@ -42,10 +48,10 @@ export default function Home() {
 
   const restartAudio = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent text selection on double click
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
+    if (cardAudioRef.current) {
+      cardAudioRef.current.currentTime = 0;
       if (!isPlaying) {
-        audioRef.current.play().catch(console.error);
+        cardAudioRef.current.play().catch(console.error);
         setIsPlaying(true);
       }
     }
@@ -57,8 +63,9 @@ export default function Home() {
       isSpaceMode ? "bg-black" : "bg-white"
     )}>
       
-      {/* Hidden Audio Element */}
-      <audio ref={audioRef} src="/iwgh.mp3" loop />
+      {/* Hidden Audio Elements */}
+      <audio ref={cardAudioRef} src="/song.mp3" loop />
+      <audio ref={spaceAudioRef} src="/iwgh.mp3" loop />
 
       {isSpaceMode ? (
         <div className="fixed inset-0 z-0">
