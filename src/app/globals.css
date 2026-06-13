@@ -9,3 +9,8 @@
   --background: #ffffff;
   --foreground: #111111;
 }
+
+.space-mode {
+  --background: #000000;
+  --foreground: #ffffff;
+}

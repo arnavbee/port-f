@@ -1,11 +1,31 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useSpaceMode } from "@/components/SpaceModeProvider";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { isSpaceMode } = useSpaceMode();
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5; // Slow motion
+    }
+    
+    // Play song when entering Space Mode, pause when exiting
+    if (audioRef.current) {
+      if (isSpaceMode) {
+        audioRef.current.play().catch(console.error);
+        setIsPlaying(true);
+      } else {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  }, [isSpaceMode]);
 
   const toggleAudio = () => {
     if (audioRef.current) {
@@ -32,15 +52,31 @@ export default function Home() {
   };
 
   return (
-    <div className="pt-[80px] pb-[80px] flex flex-col flex-1 items-center justify-center min-h-[calc(100vh-80px)] md:min-h-screen bg-white">
+    <div className={cn(
+      "pt-[80px] pb-[80px] flex flex-col flex-1 items-center justify-center min-h-[calc(100vh-80px)] md:min-h-screen transition-colors duration-700",
+      isSpaceMode ? "bg-black" : "bg-white"
+    )}>
       
       {/* Hidden Audio Element */}
-      <audio ref={audioRef} src="/song.mp3" loop />
+      <audio ref={audioRef} src="/iwgh.mp3" loop />
 
-      <main className="flex flex-col items-center justify-center w-full mx-auto px-6 md:px-10">
+      {isSpaceMode ? (
+        <div className="fixed inset-0 z-0">
+          <video 
+            ref={videoRef}
+            src="/medium.mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ) : (
+        <main className="flex flex-col items-center md:items-start justify-center w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 z-10 relative">
         
-        {/* Centered Aesthetic Poster Card */}
-        <div className="w-full flex justify-center">
+        {/* Aesthetic Poster Card */}
+        <div className="w-full flex justify-center md:justify-start">
           
           <div className="relative w-full max-w-[400px] md:max-w-[480px] bg-[#fafafa] text-black rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-[4px] border-[#f0f0f0] flex flex-col p-6 md:p-8 z-10">
             
@@ -73,7 +109,7 @@ export default function Home() {
                 Arnav
               </h1>
               <h2 className="text-[1.2rem] md:text-[1.4rem] font-medium tracking-tight text-black/60 mt-1 flex items-center gap-3">
-                Experiments
+                Digital Bath
                 <span className="font-mono text-[0.5rem] text-black/40 bg-black/5 px-2 py-0.5 rounded uppercase tracking-widest border border-black/10">
                   Init
                 </span>
@@ -126,7 +162,7 @@ export default function Home() {
               </div>
               <div className="flex items-end gap-3">
                 <div className="text-right pb-1">
-                  India
+                  Earth
                 </div>
                 <div className="group/qr cursor-crosshair">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -142,6 +178,7 @@ export default function Home() {
           </div>
         </div>
       </main>
+      )}
     </div>
   );
 }

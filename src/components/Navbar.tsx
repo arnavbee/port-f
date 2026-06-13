@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useSpaceMode } from "@/components/SpaceModeProvider";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { isSpaceMode, toggleSpaceMode } = useSpaceMode();
 
   const links = [
     { name: "Home", path: "/" },
@@ -13,7 +15,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 w-full flex justify-between items-center py-[20px] md:py-[32px] px-4 sm:px-6 md:px-10 max-w-[1100px] mx-auto backdrop-blur-md transition-colors duration-700 bg-background/80">
+    <nav className="fixed top-0 left-0 right-0 z-50 w-full flex justify-between items-center py-[20px] md:py-[32px] px-4 sm:px-6 md:px-10 max-w-[1100px] mx-auto transition-colors duration-700 bg-transparent">
       <div className="flex gap-[16px] sm:gap-[24px] md:gap-[32px]">
         {links.map((link) => (
           <Link
@@ -30,6 +32,20 @@ export default function Navbar() {
       </div>
       
       <div className="flex items-center gap-[12px] sm:gap-[16px] md:gap-[24px]">
+        <button 
+          onClick={toggleSpaceMode}
+          aria-label="Toggle Space Mode"
+          className={cn(
+            "transition-colors hover:text-foreground",
+            isSpaceMode ? "text-foreground" : "text-foreground/60"
+          )}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[16px] h-[16px] md:w-[18px] md:h-[18px]">
+            <circle cx="12" cy="12" r="6"/>
+            <ellipse cx="12" cy="12" rx="10" ry="3" transform="rotate(-45 12 12)"/>
+          </svg>
+        </button>
+        <div className="w-[1px] h-[16px] bg-foreground/20 mx-1"></div>
         <a href="#" aria-label="X (Twitter)" className="transition-colors text-foreground/60 hover:text-foreground" target="_blank" rel="noopener noreferrer">
           <svg className="w-[16px] h-[16px] md:w-[18px] md:h-[18px] fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
