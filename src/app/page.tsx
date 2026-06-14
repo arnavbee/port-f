@@ -80,10 +80,10 @@ export default function Home() {
           />
         </div>
       ) : (
-        <main className="flex flex-col items-center md:items-start justify-center w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 z-10 relative">
+        <main className="flex flex-col items-center justify-center w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 z-10 relative">
         
         {/* Aesthetic Poster Card */}
-        <div className="w-full flex justify-center md:justify-start">
+        <div className="w-full flex justify-center">
           
           <div className="relative w-full max-w-[400px] md:max-w-[480px] bg-[#fafafa] text-black rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-[4px] border-[#f0f0f0] flex flex-col p-6 md:p-8 z-10">
             
@@ -116,7 +116,7 @@ export default function Home() {
                 Arnav
               </h1>
               <h2 className="text-[1.2rem] md:text-[1.4rem] font-medium tracking-tight text-black/60 mt-1 flex items-center gap-3">
-                Digital Bath
+                Serial Experiments
                 <span className="font-mono text-[0.5rem] text-black/40 bg-black/5 px-2 py-0.5 rounded uppercase tracking-widest border border-black/10">
                   Init
                 </span>
@@ -130,12 +130,11 @@ export default function Home() {
               onDoubleClick={restartAudio}
             >
               
-              {/* The Colorful Fluid Mesh Background */}
-              <div className="absolute inset-0 bg-[#cdb4db]"></div>
-              <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-[#ffafcc] rounded-full mix-blend-screen filter blur-[60px] opacity-80 animate-pulse"></div>
-              <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-[#fcf6bd] rounded-full mix-blend-overlay filter blur-[50px] opacity-90"></div>
-              <div className="absolute top-[30%] right-[10%] w-[50%] h-[50%] bg-[#a2d2ff] rounded-full mix-blend-multiply filter blur-[60px] opacity-60"></div>
-              <div className="absolute bottom-[10%] left-[10%] w-[60%] h-[60%] bg-[#bde0fe] rounded-full mix-blend-screen filter blur-[70px] opacity-70"></div>
+              {/* Lain Static/Glitch Background */}
+              <div className="absolute inset-0 bg-[#e0e0e0]"></div>
+              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40 mix-blend-multiply"></div>
+              <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-[#ffffff] rounded-full filter blur-[60px] opacity-80"></div>
+              <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-[#aaaaaa] rounded-full mix-blend-multiply filter blur-[50px] opacity-50"></div>
 
               {/* Engineering Crosshairs */}
               <div className="absolute top-[10%] left-[5%] w-4 h-4 border-l border-t border-black/30 pointer-events-none z-20"></div>
