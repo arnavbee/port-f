@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arnav B. Singh - Software Engineer",
+  title: "arnavbs",
   description: "Portfolio of Arnav B. Singh, Software Engineer",
 };
 
