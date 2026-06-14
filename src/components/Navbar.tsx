@@ -62,7 +62,7 @@ export default function Navbar() {
         <a href="https://substack.com/@arnavbs" aria-label="Substack" className="transition-colors text-foreground/60 hover:text-foreground" target="_blank" rel="noopener noreferrer">
           <svg className="w-[16px] h-[16px] md:w-[18px] md:h-[18px] fill-current" viewBox="0 0 24 24"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
         </a>
-        <a href="mailto:bsingharnav@gmail.com" aria-label="Email" className="transition-colors text-foreground/60 hover:text-foreground" target="_blank" rel="noopener noreferrer">
+        <a href="mailto:hello@arnavbs.com" aria-label="Email" className="transition-colors text-foreground/60 hover:text-foreground" target="_blank" rel="noopener noreferrer">
           <svg className="w-[16px] h-[16px] md:w-[18px] md:h-[18px] fill-current" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </a>
       </div>
