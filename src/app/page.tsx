@@ -125,7 +125,7 @@ export default function Home() {
 
             {/* Image Container with Fluid Background */}
             <div 
-              className="relative w-full h-[320px] md:h-[400px] mt-2 mb-6 group z-10 rounded-[24px] overflow-hidden shadow-inner border border-black/5"
+              className="relative w-full h-[320px] md:h-[400px] mt-2 mb-6 group z-10 rounded-[24px] overflow-hidden shadow-inner border border-black/5 touch-manipulation"
               onClick={toggleAudio}
               onDoubleClick={restartAudio}
             >
