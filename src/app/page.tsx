@@ -2,189 +2,129 @@
 
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { useSpaceMode } from "@/components/SpaceModeProvider";
+import Link from "next/link";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const cardAudioRef = useRef<HTMLAudioElement | null>(null);
-  const spaceAudioRef = useRef<HTMLAudioElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const { isSpaceMode } = useSpaceMode();
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5; // Slow motion
-    }
-    
-    if (isSpaceMode) {
-      // Pause card audio if it was playing
-      if (cardAudioRef.current && isPlaying) {
-        cardAudioRef.current.pause();
-        setIsPlaying(false);
-      }
-      // Play space mode song
-      if (spaceAudioRef.current) {
-        spaceAudioRef.current.play().catch(console.error);
-      }
-    } else {
-      // Pause space mode song
-      if (spaceAudioRef.current) {
-        spaceAudioRef.current.pause();
-      }
-    }
-  }, [isSpaceMode, isPlaying]);
+    cardAudioRef.current = new Audio("/song.mp3");
+    cardAudioRef.current.loop = true;
+    cardAudioRef.current.volume = 0.4;
+  }, []);
 
   const toggleAudio = () => {
-    if (cardAudioRef.current) {
-      if (isPlaying) {
-        cardAudioRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        cardAudioRef.current.play().catch(console.error);
-        setIsPlaying(true);
-      }
+    if (!cardAudioRef.current) return;
+    
+    if (isPlaying) {
+      cardAudioRef.current.pause();
+    } else {
+      cardAudioRef.current.play().catch(e => console.error("Audio playback failed:", e));
     }
-  };
-
-  const restartAudio = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent text selection on double click
-    if (cardAudioRef.current) {
-      cardAudioRef.current.currentTime = 0;
-      if (!isPlaying) {
-        cardAudioRef.current.play().catch(console.error);
-        setIsPlaying(true);
-      }
-    }
+    setIsPlaying(!isPlaying);
   };
 
   return (
     <div className={cn(
-      "pt-[80px] pb-[80px] flex flex-col flex-1 items-center justify-center min-h-[calc(100vh-80px)] md:min-h-screen transition-colors duration-700",
-      isSpaceMode ? "bg-black" : "bg-white"
+      "pt-[80px] md:pt-[100px] pb-[80px] w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 min-h-screen transition-colors duration-300 animate-fade-in text-white flex flex-col justify-center"
     )}>
-      
-      {/* Hidden Audio Elements */}
-      <audio ref={cardAudioRef} src="/song.mp3" loop />
-      <audio ref={spaceAudioRef} src="/iwgh.mp3" loop />
-
-      {isSpaceMode ? (
-        <div className="fixed inset-0 z-0">
-          <video 
-            ref={videoRef}
-            src="/medium.mp4" 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ) : (
-        <main className="flex flex-col items-center justify-center w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 z-10 relative">
-        
-        {/* Aesthetic Poster Card */}
-        <div className="w-full flex justify-center">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-16 lg:gap-20">
+        {/* LEFT: TEXT */}
+        <section className="animate-fade-in-up flex-1 max-w-[600px] pt-2 md:pt-4" style={{ animationDelay: "200ms", animationFillMode: "both" }}>
+          <h1 className="text-[2.2rem] md:text-[3.2rem] lg:text-[3.5rem] font-medium tracking-tight leading-tight mb-8 md:mb-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70">
+            Hi, I&apos;m Arnav.
+          </h1>
           
-          <div className="relative w-full max-w-[400px] md:max-w-[480px] bg-[#fafafa] text-black rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.08)] border-[4px] border-[#f0f0f0] flex flex-col p-6 md:p-8 z-10">
+          <div className="space-y-7 text-[1rem] md:text-[1.1rem] text-[#A1A1AA] leading-relaxed font-light">
+            <p>
+              I build AI-powered systems for operational workflows that still run the traditional way.
+            </p>
             
-            {/* Top Info Row */}
-            <div className="flex justify-between items-start text-[0.65rem] md:text-[0.7rem] uppercase tracking-widest font-bold leading-[1.4] mb-8 text-black/60 relative z-20">
-              <div className="max-w-[120px]">
-                CONFIDENTIAL <br/> PROFILE
-                <div className="font-mono text-[0.45rem] md:text-[0.5rem] mt-1.5 text-black/30 font-medium tracking-normal">
-                  ID: 0x9A4F // L4
-                </div>
-              </div>
-              <div className="text-right">
-                SUBJECT <br/> ACTIVE
-                <div className="font-mono text-[0.45rem] md:text-[0.5rem] mt-1.5 text-black/30 font-medium tracking-normal">
-                  28.6139° N, 77.2090° E
-                </div>
-              </div>
-            </div>
+            <p>
+              Right now, I&apos;m building <a href="https://www.grada-hq.com" target="_blank" rel="noopener noreferrer" className="text-white border-b border-white/20 hover:border-white transition-all pb-[1px]">Grada</a> — automating invoicing, purchase orders, and catalog operations for fashion brands selling on 
+              <span className="inline-flex items-center gap-[6px] mx-[6px] align-middle translate-y-[-1px]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://www.google.com/s2/favicons?domain=myntra.com&sz=64" alt="Myntra" title="Myntra" className="h-[16px] w-auto rounded-[3px]" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://www.google.com/s2/favicons?domain=ajio.com&sz=64" alt="Ajio" title="Ajio" className="h-[16px] w-auto rounded-[3px]" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://www.google.com/s2/favicons?domain=amazon.in&sz=64" alt="Amazon" title="Amazon" className="h-[16px] w-auto rounded-[3px]" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://www.google.com/s2/favicons?domain=flipkart.com&sz=64" alt="Flipkart" title="Flipkart" className="h-[16px] w-auto rounded-[3px]" />
+              </span>.
+            </p>
+            
+            <p>
+              I also <Link href="/writings" className="text-white border-b border-white/20 hover:border-white transition-all pb-[1px]">write</Link> about technology, leverage, and systems.
+            </p>
 
-            {/* Main Titles */}
-            <div className="flex flex-col mb-4 relative z-20">
-              <div className="absolute right-0 top-1 text-right">
-                <div className="font-mono text-[0.5rem] md:text-[0.55rem] text-black/30 uppercase tracking-widest leading-[1.6]">
-                  SYS.VER: 9.4.2<br/>
-                  MEM: ALLOCATED<br/>
-                  TS: 1718228400
-                </div>
-              </div>
-              <h1 className="text-[3rem] md:text-[4rem] font-semibold tracking-tight leading-none text-black">
-                Arnav
-              </h1>
-              <h2 className="text-[1.2rem] md:text-[1.4rem] font-medium tracking-tight text-black/60 mt-1 flex items-center gap-3">
-                Serial Experiments
-                <span className="font-mono text-[0.5rem] text-black/40 bg-black/5 px-2 py-0.5 rounded uppercase tracking-widest border border-black/10">
-                  Init
-                </span>
-              </h2>
-            </div>
-
-            {/* Image Container with Fluid Background */}
-            <div 
-              className="relative w-full h-[320px] md:h-[400px] mt-2 mb-6 group z-10 rounded-[24px] overflow-hidden shadow-inner border border-black/5 touch-manipulation"
-              onClick={toggleAudio}
-              onDoubleClick={restartAudio}
-            >
-              
-              {/* Lain Static/Glitch Background */}
-              <div className="absolute inset-0 bg-[#e0e0e0]"></div>
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40 mix-blend-multiply"></div>
-              <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-[#ffffff] rounded-full filter blur-[60px] opacity-80"></div>
-              <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-[#aaaaaa] rounded-full mix-blend-multiply filter blur-[50px] opacity-50"></div>
-
-              {/* Engineering Crosshairs */}
-              <div className="absolute top-[10%] left-[5%] w-4 h-4 border-l border-t border-black/30 pointer-events-none z-20"></div>
-              <div className="absolute top-[10%] right-[5%] w-4 h-4 border-r border-t border-black/30 pointer-events-none z-20"></div>
-              <div className="absolute bottom-[10%] left-[5%] w-4 h-4 border-l border-b border-black/30 pointer-events-none z-20"></div>
-              <div className="absolute bottom-[10%] right-[5%] w-4 h-4 border-r border-b border-black/30 pointer-events-none z-20"></div>
-              
-              {/* Vertical Data Text */}
-              <div className="absolute top-[20%] left-2 font-mono text-[0.45rem] md:text-[0.5rem] text-black/40 [writing-mode:vertical-rl] rotate-180 uppercase tracking-widest pointer-events-none whitespace-nowrap z-20 mix-blend-color-burn font-bold transition-colors">
-                AUDIO_STATUS: {isPlaying ? "PLAYING // ACTIVE" : "MUTED // STANDBY"}
-              </div>
-              <div className="absolute bottom-[20%] right-2 font-mono text-[0.45rem] md:text-[0.5rem] text-black/40 [writing-mode:vertical-rl] uppercase tracking-widest pointer-events-none whitespace-nowrap z-20 mix-blend-color-burn font-bold">
-                RENDER_TARGET: DOLPHIN_01
-              </div>
-
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/profile-image.png" 
-                alt="Arnav" 
-                className={cn(
-                  "absolute inset-0 w-full h-full object-cover object-[center_30%] mix-blend-multiply contrast-[1.1] opacity-70 relative z-10 transition-all duration-1000",
-                  isPlaying ? "grayscale-0" : "grayscale"
-                )}
-              />
-            </div>
-
-            {/* Bottom Info Row */}
-            <div className="flex justify-between items-end mt-auto text-[0.65rem] md:text-[0.7rem] uppercase font-bold tracking-wider leading-[1.4] text-black/60 pt-5 border-t border-black/10">
-              <div className="max-w-[150px] pb-1">
-                Human / Machine <br/> Internet
-              </div>
-              <div className="flex items-end gap-3">
-                <div className="text-right pb-1">
-                  Earth
-                </div>
-                <div className="group/qr cursor-crosshair">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent("https://www.youtube.com/watch?v=H6JjSdO0XWA")}&color=000000&bgcolor=fafafa`}
-                    className="w-[36px] h-[36px] opacity-40 mix-blend-multiply transition-all duration-300 group-hover/qr:opacity-100 group-hover/qr:scale-110" 
-                    alt="Classified Data" 
-                  />
-                </div>
-              </div>
-            </div>
-
+            <p>
+              I&apos;m drawn to high-agency environments: places where the roadmap is unclear, the problem is real, and the system still needs to be designed from first principles.
+            </p>
           </div>
-        </div>
-      </main>
-      )}
+
+          <div className="flex gap-8 mt-12 text-[0.95rem] font-medium tracking-wide">
+            <Link href="/projects" className="group flex items-center gap-2 text-[#A1A1AA] hover:text-white transition-colors">
+              <span className="text-white/40 group-hover:text-white transition-colors transform group-hover:translate-x-1 duration-300">→</span> See my work
+            </Link>
+            <Link href="/about" className="group flex items-center gap-2 text-[#A1A1AA] hover:text-white transition-colors">
+              <span className="text-white/40 group-hover:text-white transition-colors transform group-hover:translate-x-1 duration-300">→</span> About & Contact
+            </Link>
+          </div>
+        </section>
+
+        {/* RIGHT: THE CARD */}
+        <section className="animate-fade-in-up w-full md:w-auto flex-shrink-0 flex justify-center md:justify-end" style={{ animationDelay: "300ms", animationFillMode: "both" }}>
+          <div className="relative w-full aspect-[4/5] max-w-[380px] lg:max-w-[420px] md:w-[380px] lg:w-[420px] group">
+            {/* The base layer (blur/glow) */}
+            <div className="absolute inset-0 bg-[#A1A1AA] blur-[100px] opacity-[0.08] rounded-full group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none"></div>
+            
+            {/* The main card body */}
+            <div className="absolute inset-0 rounded-[20px] bg-[#09090B] border border-[#27272A] shadow-2xl overflow-hidden flex flex-col p-6 lg:p-8 group-hover:border-[#52525B] transition-colors duration-500">
+              
+              {/* Header */}
+              <div className="flex justify-between items-center text-[0.65rem] font-mono tracking-widest text-[#71717A] uppercase mb-8">
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E4E4E7]/60 animate-pulse"></span>
+                  System Active
+                </span>
+                <span>V.2.0.4</span>
+              </div>
+
+              {/* Visual Graphic Area / Audio Toggle */}
+              <div 
+                className="w-full flex-1 rounded-[12px] overflow-hidden mb-6 border border-[#27272A]/50 relative bg-[#030303] flex flex-col justify-between p-3 cursor-pointer group/audio"
+                onClick={toggleAudio}
+              >
+                {/* The Image */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/profile-image.png" 
+                  alt="Arnav" 
+                  className={cn(
+                    "absolute inset-0 w-full h-full object-cover object-[center_30%] mix-blend-screen opacity-70 transition-all duration-700 group-hover/audio:scale-105 group-hover/audio:opacity-100",
+                    isPlaying ? "grayscale-0 scale-105" : "grayscale group-hover/audio:grayscale-[0.5]"
+                  )}
+                />
+                
+                <div className="absolute inset-0 opacity-[0.2]" style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "12px 12px" }}></div>
+                
+                <div className="relative z-10 flex justify-between w-full font-mono text-[0.6rem] text-white uppercase tracking-widest drop-shadow-md bg-black/40 px-2 py-1 rounded">
+                  <span>[ AUDIO: {isPlaying ? "ACTIVE" : "STANDBY"} ]</span>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="pt-4 border-t border-[#27272A] flex justify-between items-center text-[0.6rem] font-mono tracking-widest text-[#71717A] uppercase">
+                <span>Engineer</span>
+                <span>New Delhi</span>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
