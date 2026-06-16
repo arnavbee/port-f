@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import { SpaceModeProvider } from "@/components/SpaceModeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,9 +26,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-black">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-black text-white`}>
-        <Navbar />
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-black text-white relative`}>
+        <SpaceModeProvider>
+          <Navbar />
+          {children}
+        </SpaceModeProvider>
       </body>
     </html>
   );

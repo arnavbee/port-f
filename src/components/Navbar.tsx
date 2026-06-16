@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useSpaceMode } from "./SpaceModeProvider";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { isSpaceMode, toggleSpaceMode } = useSpaceMode();
 
   const links = [
     { name: "Home", path: "/" },
@@ -15,8 +17,8 @@ export default function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 w-full flex justify-between items-center py-[20px] md:py-[32px] px-4 sm:px-6 md:px-10 max-w-[1100px] mx-auto transition-colors duration-300 backdrop-blur-md",
-      "bg-black/80 text-white"
+      "fixed top-0 left-0 right-0 z-50 w-full flex justify-between items-center py-[20px] md:py-[32px] px-4 sm:px-6 md:px-10 max-w-[1100px] mx-auto transition-all duration-300",
+      isSpaceMode ? "bg-transparent text-white" : "bg-black/80 text-white backdrop-blur-md"
     )}>
       <div className="flex gap-[16px] sm:gap-[24px] md:gap-[32px]">
         {links.map((link) => (
@@ -36,6 +38,20 @@ export default function Navbar() {
       </div>
       
       <div className="flex items-center gap-[12px] sm:gap-[16px] md:gap-[24px]">
+        {/* Space Mode Toggle */}
+        <button 
+          onClick={toggleSpaceMode}
+          aria-label="Toggle Space Mode"
+          className={cn(
+            "transition-all duration-300",
+            isSpaceMode ? "text-white scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" : "text-white/60 hover:text-white"
+          )}
+        >
+          <svg className="w-[16px] h-[16px] md:w-[18px] md:h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+
         <div className="w-[1px] h-[16px] mx-1 bg-white/20"></div>
         <a href="https://x.com/bsngarnav" aria-label="X (Twitter)" className="transition-colors duration-300 text-white/60 hover:text-white" target="_blank" rel="noopener noreferrer">
           <svg className="w-[16px] h-[16px] md:w-[18px] md:h-[18px] fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>

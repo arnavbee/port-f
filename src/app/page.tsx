@@ -3,10 +3,30 @@
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useSpaceMode } from "@/components/SpaceModeProvider";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const cardAudioRef = useRef<HTMLAudioElement | null>(null);
+  
+  const { isSpaceMode } = useSpaceMode();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const spaceAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (isSpaceMode) {
+      if (videoRef.current) {
+        videoRef.current.play().catch(console.error);
+      }
+      if (spaceAudioRef.current) {
+        spaceAudioRef.current.play().catch(console.error);
+      }
+    } else {
+      if (spaceAudioRef.current) {
+        spaceAudioRef.current.pause();
+      }
+    }
+  }, [isSpaceMode]);
 
   useEffect(() => {
     cardAudioRef.current = new Audio("/song.mp3");
@@ -29,8 +49,25 @@ export default function Home() {
     <div className={cn(
       "pt-[80px] md:pt-[100px] pb-[80px] w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 min-h-screen transition-colors duration-300 animate-fade-in text-white flex flex-col justify-center"
     )}>
-      <div className="flex flex-col md:flex-row justify-between items-start gap-16 lg:gap-20">
-        {/* LEFT: TEXT */}
+      {/* Hidden Audio Elements */}
+      <audio ref={spaceAudioRef} src="/iwgh.mp3" loop />
+
+      {isSpaceMode ? (
+        <div className="fixed inset-0 z-0 bg-black animate-fade-in">
+          <video 
+            ref={videoRef}
+            src="/vidgm_h264.mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col md:flex-row justify-between items-start gap-16 lg:gap-20 relative z-10">
+          {/* LEFT: TEXT */}
         <section className="animate-fade-in-up flex-1 max-w-[600px] pt-2 md:pt-4" style={{ animationDelay: "200ms", animationFillMode: "both" }}>
           <h1 className="text-[2.2rem] md:text-[3.2rem] lg:text-[3.5rem] font-medium tracking-tight leading-tight mb-8 md:mb-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70">
             Hi, I&apos;m Arnav.
@@ -97,10 +134,9 @@ export default function Home() {
                 className="w-full flex-1 rounded-[12px] overflow-hidden mb-6 border border-[#27272A]/50 relative bg-[#030303] flex flex-col justify-between p-3 cursor-pointer group/audio"
                 onClick={toggleAudio}
               >
-                {/* The Image */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
-                  src="/profile-image.png" 
+                  src="/um.png" 
                   alt="Arnav" 
                   className={cn(
                     "absolute inset-0 w-full h-full object-cover object-[center_30%] mix-blend-screen opacity-70 transition-all duration-700",
@@ -124,7 +160,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
