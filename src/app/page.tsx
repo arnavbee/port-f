@@ -103,8 +103,8 @@ export default function Home() {
                   src="/profile-image.png" 
                   alt="Arnav" 
                   className={cn(
-                    "absolute inset-0 w-full h-full object-cover object-[center_30%] mix-blend-screen opacity-70 transition-all duration-700 group-hover/audio:scale-105 group-hover/audio:opacity-100",
-                    isPlaying ? "grayscale-0 scale-105" : "grayscale group-hover/audio:grayscale-[0.5]"
+                    "absolute inset-0 w-full h-full object-cover object-[center_30%] mix-blend-screen opacity-70 transition-all duration-700",
+                    isPlaying ? "grayscale-0 scale-105" : "grayscale"
                   )}
                 />
                 

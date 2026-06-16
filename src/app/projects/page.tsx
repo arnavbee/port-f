@@ -19,28 +19,27 @@ export default function Projects() {
 
   return (
     <div className={cn(
-      "pt-[120px] md:pt-[160px] pb-[80px] flex flex-col w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 min-h-screen transition-colors duration-300 animate-fade-in text-white",
+      "pt-[80px] md:pt-[96px] pb-[40px] flex flex-col w-full max-w-[1100px] mx-auto px-6 md:px-10 min-h-screen transition-colors duration-300 animate-fade-in text-white",
       "bg-black"
     )}>
       
       {/* Header Section with Toggle */}
-      <div className="w-full flex justify-between items-end mb-[32px] md:mb-[40px] border-b border-white/10 pb-[16px] md:pb-[24px] shrink-0">
-        <div className="flex gap-[8px] md:gap-[12px] font-medium text-[0.75rem] md:text-[0.85rem] tracking-widest lowercase">
+      <div className="w-full flex justify-end items-end mb-[32px] md:mb-[40px] border-b border-white/10 pb-[16px] md:pb-[24px] shrink-0">
+        <div className="flex gap-[16px] md:gap-[24px] font-medium text-[0.75rem] md:text-[0.85rem] tracking-widest lowercase">
           <button 
             onClick={() => setActiveTab("shipped")}
             className={cn(
               "transition-opacity duration-200",
-              activeTab === "shipped" ? "opacity-100" : "opacity-40 hover:opacity-60"
+              activeTab === "shipped" ? "opacity-100" : "opacity-30 hover:opacity-60"
             )}
           >
             shipped
           </button>
-          <span className="opacity-20">/</span>
           <button 
             onClick={() => setActiveTab("scrapped")}
             className={cn(
               "transition-opacity duration-200",
-              activeTab === "scrapped" ? "opacity-100" : "opacity-40 hover:opacity-60"
+              activeTab === "scrapped" ? "opacity-100" : "opacity-30 hover:opacity-60"
             )}
           >
             scrapped
@@ -49,7 +48,7 @@ export default function Projects() {
       </div>
 
       {activeTab === "shipped" ? (
-        <div className="space-y-16 max-w-[800px] animate-fade-in-up" style={{ animationFillMode: "both" }}>
+        <div className="space-y-24 max-w-[800px] animate-fade-in-up" style={{ animationFillMode: "both" }}>
           {/* Grada */}
           <div>
             <div className="flex items-baseline gap-4 mb-3">
@@ -74,13 +73,13 @@ export default function Projects() {
               <span>Cloudflare R2</span>
             </div>
             <div className="flex gap-4">
-              <a href="https://www.grada-hq.com" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-semibold hover:text-white/70 transition-colors">
+              <a href="https://www.grada-hq.com" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
                 [Visit Grada ↗]
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-semibold hover:text-white/70 transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
                 [GitHub ↗]
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-semibold hover:text-white/70 transition-colors">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
                 [Demo Video ↗]
               </a>
             </div>
@@ -93,9 +92,9 @@ export default function Projects() {
               <span className="font-mono text-[0.8rem] text-white/40">2025</span>
             </div>
             <p className="text-[1.1rem] text-white/70 leading-relaxed mb-6">
-              AI resume screening engine. Built as a live Next.js app in 48 hours.
+              AI resume screening engine.
             </p>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-semibold hover:text-white/70 transition-colors">
+            <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
               [See it ↗]
             </a>
           </div>
@@ -109,7 +108,7 @@ export default function Projects() {
             <p className="text-[1.1rem] text-white/70 leading-relaxed mb-6">
               Independent research report on stablecoin adoption. Funded by CoinDCX × Solana Foundation.
             </p>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-semibold hover:text-white/70 transition-colors">
+            <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
               [Read the report ↗]
             </a>
           </div>

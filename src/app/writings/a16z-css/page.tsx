@@ -91,38 +91,37 @@ export default function A16zCss() {
             className="flex flex-col group w-full cursor-pointer transition-all duration-500 hover:-translate-y-1"
           >
             {/* Thumbnail */}
-            <div className="w-full aspect-[16/9] bg-white/5 relative overflow-hidden rounded-[8px] mb-[16px]">
+            <div className="w-full aspect-[16/9] bg-white/5 relative overflow-hidden rounded-[8px] mb-[20px]">
               {article.image ? (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={article.image} 
                     alt={article.title} 
-                    className="absolute inset-0 w-full h-full object-cover transition-all duration-500 block"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 block"
                   />
                 </>
               ) : (
-                <div className="absolute inset-0 bg-foreground/5 flex flex-col items-center justify-center border border-foreground/10 transition-colors">
-                  <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-multiply"></div>
-                  <span className="opacity-40 font-mono text-[0.6rem] uppercase tracking-widest z-10">Image Pending</span>
+                <div className="absolute inset-0 bg-[#09090B] flex flex-col items-center justify-center border border-white/5 transition-colors">
+                  <span className="opacity-30 font-mono text-[0.6rem] uppercase tracking-widest z-10">Image Pending</span>
                 </div>
               )}
             </div>
+
+            {/* Title */}
+            <h3 className="text-[1.1rem] md:text-[1.2rem] font-medium tracking-tight leading-snug mb-[12px] transition-colors duration-300 group-hover:text-white/70">
+              {article.title}
+            </h3>
             
             {/* Meta */}
-            <div className="flex justify-between items-center mb-[8px]">
-              <span className="text-[0.7rem] md:text-[0.75rem] font-mono text-white/40 shrink-0">
+            <div className="flex items-center gap-3 mt-auto">
+              <span className="text-[0.7rem] md:text-[0.75rem] font-mono text-white/40 shrink-0 tracking-wider">
                 {article.year}
               </span>
-              <span className="text-[0.65rem] md:text-[0.7rem] font-mono text-white/60 shrink-0 lowercase">
+              <span className="text-[0.65rem] md:text-[0.7rem] font-mono text-white/60 shrink-0 lowercase tracking-wider">
                 ({article.tags[0]})
               </span>
             </div>
-
-            {/* Title */}
-            <h3 className="text-[1.1rem] md:text-[1.2rem] font-medium tracking-tight leading-tight">
-              {article.title}
-            </h3>
           </a>
         ))}
       </div>
