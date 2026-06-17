@@ -138,10 +138,7 @@ export default function Home() {
                 <img 
                   src="/um.png" 
                   alt="Arnav" 
-                  className={cn(
-                    "absolute inset-0 w-full h-full object-cover object-[center_30%] mix-blend-screen opacity-70 transition-all duration-700",
-                    isPlaying ? "grayscale-0 scale-105" : "grayscale"
-                  )}
+                  className="absolute inset-0 w-full h-full object-cover object-[center_30%] mix-blend-screen opacity-70"
                 />
                 
                 <div className="absolute inset-0 opacity-[0.2]" style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "12px 12px" }}></div>

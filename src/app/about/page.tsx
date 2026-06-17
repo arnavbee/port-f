@@ -16,10 +16,6 @@ export default function About() {
         </h2>
         
         <div className="space-y-7 text-[1rem] md:text-[1.1rem] text-[#A1A1AA] leading-relaxed font-light">
-          <p className="font-mono text-[0.85rem] text-[#71717A] mb-8 uppercase tracking-widest">
-            24. B.Tech ECE, AI/ML minor. New Delhi.
-          </p>
-          
           <p>
             I came up through web3 research, moved into building AI products, and somewhere in between figured out I work best at the start of things — when the problem is real but the approach isn&apos;t obvious yet.
           </p>
@@ -40,15 +36,14 @@ export default function About() {
           Connect
         </h2>
         
-        <div className="flex gap-8 text-[0.95rem] font-medium mb-10">
+        <div className="flex flex-wrap gap-8 text-[0.95rem] font-medium mb-10">
           <a href="mailto:hello@arnavbs.com" className="text-[#A1A1AA] hover:text-white transition-colors">Email</a>
           <a href="https://twitter.com/arnavbsingh" target="_blank" rel="noopener noreferrer" className="text-[#A1A1AA] hover:text-white transition-colors">X</a>
           <a href="https://github.com/arnavbee" target="_blank" rel="noopener noreferrer" className="text-[#A1A1AA] hover:text-white transition-colors">GitHub</a>
+          <a href="https://soundcloud.com/arnav-b-779948090" target="_blank" rel="noopener noreferrer" className="text-[#A1A1AA] hover:text-white transition-colors">SoundCloud</a>
+          <a href="https://in.pinterest.com/arnavbsss/" target="_blank" rel="noopener noreferrer" className="text-[#A1A1AA] hover:text-white transition-colors">Pinterest</a>
         </div>
-        
-        <p className="text-[1rem] text-[#71717A] leading-relaxed max-w-[500px] font-light">
-          If you&apos;re a fashion brand on Myntra or Ajio, or a founder who needs someone who ships and thinks — reach out.
-        </p>
+
       </section>
 
     </div>
