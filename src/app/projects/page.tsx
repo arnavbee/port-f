@@ -76,10 +76,10 @@ export default function Projects() {
               <a href="https://www.grada-hq.com" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
                 [Visit Grada ↗]
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
+              <a href="https://github.com/arnavbee/grada" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
                 [GitHub ↗]
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
+              <a href="https://www.youtube.com/watch?v=jnCSJCAb3Ns&feature=youtu.be" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
                 [Demo Video ↗]
               </a>
             </div>
@@ -94,7 +94,7 @@ export default function Projects() {
             <p className="text-[1.1rem] text-white/70 leading-relaxed mb-6">
               AI resume screening engine.
             </p>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
+            <a href="https://hiring-pro.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[1rem] font-medium text-[#A1A1AA] hover:text-white transition-colors">
               [See it ↗]
             </a>
           </div>

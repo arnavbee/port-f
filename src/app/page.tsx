@@ -16,6 +16,7 @@ export default function Home() {
   useEffect(() => {
     if (isSpaceMode) {
       if (videoRef.current) {
+        videoRef.current.playbackRate = 0.5;
         videoRef.current.play().catch(console.error);
       }
       if (spaceAudioRef.current) {
@@ -56,13 +57,14 @@ export default function Home() {
         <div className="fixed inset-0 z-0 bg-black animate-fade-in">
           <video 
             ref={videoRef}
-            src="/vidgm_h264.mp4" 
+            src="/medium.mp4" 
             autoPlay 
             loop 
             muted 
             playsInline
             preload="auto"
-            className="w-full h-full object-cover"
+            onCanPlay={(e) => { e.currentTarget.playbackRate = 0.75; }}
+            className="w-full h-full object-cover scale-105"
           />
         </div>
       ) : (
