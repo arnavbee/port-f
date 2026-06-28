@@ -9,15 +9,20 @@ export default function Navbar() {
   const pathname = usePathname();
   const { isSpaceMode, toggleSpaceMode } = useSpaceMode();
 
+  if (pathname.startsWith("/notes/") && pathname !== "/notes") {
+    return null;
+  }
+
   const links = [
     { name: "Home", path: "/" },
+    { name: "Notes", path: "/notes" },
     { name: "Projects", path: "/projects" },
     { name: "Writings", path: "/writings" },
   ];
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 w-full flex justify-between items-center py-[20px] md:py-[32px] px-4 sm:px-6 md:px-10 max-w-[1100px] mx-auto transition-all duration-300",
+      "fixed top-0 left-0 right-0 z-50 w-full flex justify-between items-center py-[20px] md:py-[32px] px-4 sm:px-6 md:px-10 max-w-[920px] mx-auto transition-all duration-300",
       isSpaceMode ? "bg-transparent text-white" : "bg-black/80 text-white backdrop-blur-md"
     )}>
       <div className="flex gap-[16px] sm:gap-[24px] md:gap-[32px]">

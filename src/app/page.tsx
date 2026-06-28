@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useSpaceMode } from "@/components/SpaceModeProvider";
+import { FRONTIER_NOTES, CURRENTLY_THINKING_ABOUT } from "@/lib/notes";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -48,7 +49,7 @@ export default function Home() {
 
   return (
     <div className={cn(
-      "pt-[80px] md:pt-[100px] pb-[80px] w-full max-w-[1100px] mx-auto px-4 sm:px-6 md:px-10 min-h-screen transition-colors duration-300 animate-fade-in text-white flex flex-col justify-center"
+      "pt-[80px] md:pt-[100px] pb-[80px] w-full max-w-[920px] mx-auto px-4 sm:px-6 md:px-10 min-h-screen transition-colors duration-300 animate-fade-in text-white flex flex-col justify-center"
     )}>
       {/* Hidden Audio Elements */}
       <audio ref={spaceAudioRef} src="/iwgh.mp3" loop />
@@ -70,12 +71,12 @@ export default function Home() {
       ) : (
         <div className="flex flex-col md:flex-row justify-between items-start gap-16 lg:gap-20 relative z-10">
           {/* LEFT: TEXT */}
-        <section className="animate-fade-in-up flex-1 max-w-[600px] pt-2 md:pt-4" style={{ animationDelay: "200ms", animationFillMode: "both" }}>
-          <h1 className="text-[2.2rem] md:text-[3.2rem] lg:text-[3.5rem] font-medium tracking-tight leading-tight mb-8 md:mb-10 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70">
+        <section className="animate-fade-in-up flex-1 max-w-[500px] pt-2 md:pt-4" style={{ animationDelay: "200ms", animationFillMode: "both" }}>
+          <h1 className="text-[1.6rem] md:text-[2rem] font-normal tracking-tight leading-tight mb-6 md:mb-8 text-[#E4E4E7]">
             Hi, I&apos;m Arnav.
           </h1>
           
-          <div className="space-y-7 text-[1rem] md:text-[1.1rem] text-[#A1A1AA] leading-relaxed font-light">
+          <div className="space-y-6 text-[0.85rem] md:text-[0.9rem] text-[#A1A1AA] leading-relaxed font-light">
             <p>
               I build AI-powered systems for operational workflows that still run the traditional way.
             </p>
@@ -103,19 +104,21 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex gap-8 mt-12 text-[0.95rem] font-medium tracking-wide">
-            <Link href="/projects" className="group flex items-center gap-2 text-[#A1A1AA] hover:text-white transition-colors">
+          <div className="flex gap-8 mt-10 text-[0.8rem] md:text-[0.85rem] font-medium tracking-wide">
+            <Link href="/projects" className="group flex items-center gap-2 text-[#A1A1AA] hover:text-[#E4E4E7] transition-colors">
               <span className="text-white/40 group-hover:text-white transition-colors transform group-hover:translate-x-1 duration-300">→</span> See my work
             </Link>
-            <Link href="/about" className="group flex items-center gap-2 text-[#A1A1AA] hover:text-white transition-colors">
+            <Link href="/about" className="group flex items-center gap-2 text-[#A1A1AA] hover:text-[#E4E4E7] transition-colors">
               <span className="text-white/40 group-hover:text-white transition-colors transform group-hover:translate-x-1 duration-300">→</span> About & Contact
             </Link>
           </div>
+
+
         </section>
 
         {/* RIGHT: THE CARD */}
         <section className="animate-fade-in-up w-full md:w-auto flex-shrink-0 flex justify-center md:justify-end" style={{ animationDelay: "300ms", animationFillMode: "both" }}>
-          <div className="relative w-full aspect-[4/5] max-w-[380px] lg:max-w-[420px] md:w-[380px] lg:w-[420px] group">
+          <div className="relative w-full aspect-[4/5] max-w-[300px] lg:max-w-[340px] md:w-[300px] lg:w-[340px] group">
             {/* The base layer (blur/glow) */}
             <div className="absolute inset-0 bg-[#A1A1AA] blur-[100px] opacity-[0.08] rounded-full group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none"></div>
             

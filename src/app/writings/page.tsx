@@ -25,28 +25,28 @@ export default function Writings() {
   });
 
   return (
-    <div className="pt-[80px] md:pt-[96px] pb-[40px] min-h-screen flex flex-col px-6 md:px-10 w-full max-w-[1100px] mx-auto animate-fade-in bg-black text-white">
+    <div className="pt-[80px] md:pt-[100px] pb-[80px] min-h-screen flex flex-col px-6 md:px-10 w-full max-w-[920px] mx-auto animate-fade-in bg-black text-white">
       {/* Header Section with Filters */}
-      <div className="w-full flex justify-between items-end mb-[32px] md:mb-[40px] border-b border-white/10 pb-[16px] md:pb-[24px] shrink-0">
+      <div className="w-full flex justify-between items-end mb-10 border-b border-[#27272A]/50 pb-5 shrink-0">
         
         {/* Left Side: Years */}
-        <div className="flex gap-[8px] md:gap-[12px] font-medium text-[0.75rem] md:text-[0.85rem] tracking-widest lowercase">
+        <div className="flex gap-4 font-mono text-[0.7rem] lowercase tracking-wider text-[#71717A]">
           {allYears.map((year, index) => (
-            <div key={year} className="flex gap-[8px] md:gap-[12px]">
+            <div key={year} className="flex gap-4">
               <button 
                 onClick={() => setActiveYear(activeYear === year ? "All" : year)}
                 className={cn(
-                  "transition-opacity duration-200",
-                  activeYear === year ? "opacity-100" : "opacity-40 hover:opacity-60"
+                  "transition-colors duration-200 border-b pb-1",
+                  activeYear === year ? "text-[#E4E4E7] border-[#E4E4E7]" : "border-transparent hover:text-[#A1A1AA]"
                 )}
               >
                 {year}
               </button>
-              {index < allYears.length - 1 && <span className="opacity-20">/</span>}
+              {index < allYears.length - 1 && <span className="text-[#3F3F46] border-b border-transparent pb-1">/</span>}
             </div>
           ))}
         </div>
-        <div className="flex justify-end gap-[16px] md:gap-[24px] overflow-x-auto">
+        <div className="flex justify-end gap-6 overflow-x-auto font-mono text-[0.7rem] lowercase tracking-wider text-[#71717A]">
           {tags.map(tag => {
           const displayName = tag === "All" ? "all" : tag.toLowerCase();
           
@@ -55,8 +55,8 @@ export default function Writings() {
               key={tag}
               onClick={() => setActiveTag(tag)}
               className={cn(
-                "font-medium text-[0.75rem] md:text-[0.85rem] tracking-widest transition-opacity duration-200 lowercase",
-                activeTag === tag ? "opacity-100" : "opacity-30 hover:opacity-60"
+                "transition-colors duration-200 border-b pb-1 shrink-0",
+                activeTag === tag ? "text-[#E4E4E7] border-[#E4E4E7]" : "border-transparent hover:text-[#A1A1AA]"
               )}
             >
               {displayName}
@@ -67,7 +67,7 @@ export default function Writings() {
       </div>
 
       {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px] md:gap-[32px] w-full items-start">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full items-start">
         {filteredArticles.map((article, index) => (
           <a 
             key={`${article.title}-${index}`} 
@@ -77,7 +77,7 @@ export default function Writings() {
             className="flex flex-col group w-full cursor-pointer transition-all duration-500 hover:-translate-y-1"
           >
             {/* Thumbnail */}
-            <div className="w-full aspect-[16/9] bg-white/5 relative overflow-hidden rounded-[8px] mb-[20px]">
+            <div className="w-full aspect-[16/9] bg-[#18181B] relative overflow-hidden rounded-lg mb-4">
               {article.image ? (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -88,25 +88,22 @@ export default function Writings() {
                   />
                 </>
               ) : (
-                <div className="absolute inset-0 bg-[#09090B] flex flex-col items-center justify-center border border-white/5 transition-colors">
-                  <span className="opacity-30 font-mono text-[0.6rem] uppercase tracking-widest z-10">Image Pending</span>
+                <div className="absolute inset-0 bg-[#09090B] flex flex-col items-center justify-center border border-[#27272A] transition-colors">
+                  <span className="text-[#71717A] font-mono text-[0.6rem] lowercase tracking-wider z-10">no image</span>
                 </div>
               )}
             </div>
 
             {/* Title */}
-            <h3 className="text-[1.1rem] md:text-[1.2rem] font-medium tracking-tight leading-snug mb-[12px] transition-colors duration-300 group-hover:text-white/70">
+            <h3 className="text-[0.95rem] md:text-[1.05rem] font-normal tracking-tight leading-snug mb-3 transition-colors duration-300 text-[#E4E4E7] group-hover:text-white">
               {article.title}
             </h3>
             
             {/* Meta */}
-            <div className="flex items-center gap-3 mt-auto">
-              <span className="text-[0.7rem] md:text-[0.75rem] font-mono text-white/40 shrink-0 tracking-wider">
-                {article.year}
-              </span>
-              <span className="text-[0.65rem] md:text-[0.7rem] font-mono text-white/60 shrink-0 lowercase tracking-wider">
-                ({article.tags[0]})
-              </span>
+            <div className="flex items-center gap-2 mt-auto text-[#71717A] font-mono text-[0.65rem] tracking-wider lowercase">
+              <span>{article.year}</span>
+              <span>·</span>
+              <span>{article.tags[0]}</span>
             </div>
           </a>
         ))}
