@@ -18,6 +18,7 @@ export default function Navbar() {
     { name: "Notes", path: "/notes" },
     { name: "Projects", path: "/projects" },
     { name: "Writings", path: "/writings" },
+    { name: "Library", path: "/library" },
   ];
 
   return (

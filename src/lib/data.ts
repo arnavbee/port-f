@@ -119,33 +119,9 @@ export type Resource = {
 
 export const RESOURCES: Resource[] = [
   {
-    title: "The Master Switch",
-    type: "(Book)",
-    date: "06.24",
-    link: "https://en.wikipedia.org/wiki/The_Master_Switch"
-  },
-  {
-    title: "Detroit Techno '99",
-    type: "(Audio)",
-    date: "05.24",
-    link: "#"
-  },
-  {
-    title: "Fat Protocols",
-    type: "(Essay)",
-    date: "05.24",
-    link: "https://www.usv.com/writing/2016/08/fat-protocols/"
-  },
-  {
-    title: "The Design of Everyday Things",
-    type: "(Book)",
-    date: "04.24",
-    link: "https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things"
-  },
-  {
-    title: "Refactoring UI",
-    type: "(Reading)",
-    date: "02.24",
-    link: "https://www.refactoringui.com/"
+    title: "Fintech Engineering Handbook",
+    type: "(Handbook)",
+    date: "06.26",
+    link: "https://w.pitula.me/fintech-engineering-handbook/"
   }
 ];
